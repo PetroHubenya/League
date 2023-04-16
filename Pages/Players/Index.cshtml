@@ -1,0 +1,126 @@
+﻿@page
+@model Pages.Players.IndexModel
+@{
+	ViewData["Title"] = "Players";
+}
+
+<div>
+	<h1>Players</h1>
+</div>
+
+<form>
+	<div>
+		<!-- Filter players by team and position -->
+		<label asp-for="SelectedTeam">
+			Filter by team:
+		</label>
+		<select asp-for="SelectedTeam" asp-items="@Model.TeamSelectList" onchange="this.form.submit()">
+			<option value="">All</option>
+		</select>
+
+		<!-- Filter players by position -->
+		<label asp-for="SelectedPosition">
+			Filter by position:
+		</label>
+		<select asp-for="SelectedPosition" asp-items="@Model.Positions" onchange="this.form.submit();">
+			<option value="">All</option>
+		</select>
+
+		<!-- Search player by name -->
+		<label asp-for="SearchString">
+			Search by name:
+		</label>
+		<input asp-for="SearchString" type="text" />
+		<input type="submit" value="Search" />
+	</div>
+	<div>
+		<!-- Sort players by Name, Rank or Rating. -->
+		<label asp-for="SortField">
+			Sort by:
+		</label>
+		<select asp-for="SortField" onchange="this.form.submit()">
+			<option value="Name">Name</option>
+			<option value="Rank">Rank</option>
+			<option value="Rating">Rating</option>
+		</select>
+
+		<!-- Highlite your favorite team. -->
+		<label asp-for="FavoriteTeam">
+			Highlite your favorite team:
+		</label>
+		<select asp-for="FavoriteTeam" asp-items="@Model.TeamSelectList" onchange="this.form.submit()">
+			<option value="">None</option>
+		</select>
+	</div>
+</form>
+
+<div>	
+	<table>
+		<thead>
+			<tr>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Name)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().TeamId)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Number)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Position)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Height)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Weight)</th>
+				<th>@Html.DisplayNameFor(model => model.Players.FirstOrDefault().Depth)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var p in Model.Players)
+			{
+				// The code is dublicated!!!
+				@if (p.Depth == 1)
+				{
+					<tr style="font-weight: bold;">
+						<!-- partial name="_Players" / -->
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Name)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.TeamId)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Number)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Position)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Height)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Weight)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Depth)</a></td>
+					</tr>
+				}
+				else if (p.TeamId == Model.FavoriteTeamId)
+				{
+					<tr style="background-color: gold;">
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Name)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.TeamId)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Number)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Position)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Height)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Weight)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Depth)</a></td>
+					</tr>
+				}
+				else if (p.TeamId == Model.FavoriteTeamId || p.Depth == 1)
+				{
+					<tr style="background-color: gold; font-weight: bold;">
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Name)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.TeamId)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Number)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Position)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Height)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Weight)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Depth)</a></td>
+					</tr>
+				}
+				else
+				{
+					<tr>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Name)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.TeamId)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Number)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Position)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Height)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Weight)</a></td>
+						<td><a asp-page="/Players/Details" asp-route-id="@p.PlayerId">@Html.DisplayFor(model => p.Depth)</a></td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,71 @@
+﻿@page
+@model Pages.Players.DetailsModel
+@{
+	ViewData["Title"] = "Player Details";
+}
+
+<div class="text-center">
+	<h1 class="display-4">
+		<img src="~/image/nfl/logo/@(Model.Player.TeamId).png">
+		@Model.Player.Name
+	</h1>
+</div>
+
+<div>
+	<hr />
+	<h2>Player Details</h2>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.TeamId)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.TeamId)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Number)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Number)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Position)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Position)</dd>
+		
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Height)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Height)</dd>
+		
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Weight)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Weight)</dd>
+		
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Age)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Age)</dd>
+		
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.BirthDate)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.BirthDate)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Experience)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Experience)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.DraftYear)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.DraftYear)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.DraftRound)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.DraftRound)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.DraftPick)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.DraftPick)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.College)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.College)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.State)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.State)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Rank)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Rank)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Rating)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Rating)</dd>
+
+		<dt class="col-sm-2">@Html.DisplayNameFor(model => model.Player.Depth)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(model => model.Player.Depth)</dd>
+	</dl>
+</div>
+
+<div>
+	<a asp-page="/Teams/Details" asp-route-id="@Model.Player.TeamId">Back to list</a>
+</div>

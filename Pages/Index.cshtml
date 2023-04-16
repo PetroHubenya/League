@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+@{
+  ViewData["Title"] = "Home page";
+}
+
+<!-- display the logo and league name -->
+
+<div class="text-center">
+	<a href="/Teams/Index">
+		<h1 class="display-4">
+			<img src="~/image/@(Model.League.LeagueId.ToLower())/@(Model.League.LeagueId).png">
+			@Model.League.Name
+		</h1>
+	</a>	
+</div>
+	

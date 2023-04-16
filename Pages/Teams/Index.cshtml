@@ -1,0 +1,82 @@
+﻿@page
+@model Pages.Teams.IndexModel
+@using League.Models
+@using League.Pages.Teams
+@{
+	ViewData["Title"] = "Teams";
+}
+
+<h1>Teams</h1>
+
+<div>
+	<form>
+		<label asp-for="FavoriteTeam">
+			Favorite Team: 
+		</label>
+		<select asp-for="FavoriteTeam" asp-items="Model.TeamsSelectList" onchange="this.form.submit()">
+			<option>All</option>
+		</select>
+	</form>
+</div>
+
+<!-- Loop through the list of conferences. -->
+@foreach (var c in Model.Conferences)
+{
+	<div class="text-center">
+		<!-- Render conference name. -->
+		<h2 class="display-4">@c.Name</h2>
+	</div>
+	<!-- Below the conference name loop through the list of divisions within current conference. -->
+	foreach (var d in Model.Divisions)
+	{
+		if (d.ConferenceId == c.ConferenceId)
+		{
+			<!-- Render division name. -->
+			<h3>@d.Name Division</h3>
+			<!-- Renred table of teams within current division. -->
+			<table>
+				<thead>
+					<tr>
+						<th>@Html.DisplayNameFor(model => model.Teams[0].Location)</th>
+						<th>@Html.DisplayNameFor(model => model.Teams[0].Name)</th>
+						<th>@Html.DisplayNameFor(model => model.Teams[0].Win)</th>
+						<th>@Html.DisplayNameFor(model => model.Teams[0].Loss)</th>
+						<th>@Html.DisplayNameFor(model => model.Teams[0].Tie)</th>
+					</tr>
+				</thead>
+				@foreach (var t in Model.Teams)
+				{
+					@if (t.DivisionId == d.DivisionId)
+					{
+						<tbody>
+							<!-- Code is dublicated!!! -->
+							@if (Model.FavoriteTeam == t.Name)
+							{								
+								<tr style="background-color: gold;" asp-page="">
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Location)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Name)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Win)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Loss)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Tie)</a></td>
+								</tr>
+							}
+							else
+							{
+								<tr>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Location)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Name)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Win)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Loss)</a></td>
+									<td><a asp-page="./Details" asp-route-id="@t.TeamId">@Html.DisplayFor(model => t.Tie)</a></td>
+								</tr>
+							}							
+						</tbody>
+					}
+				}
+			</table>
+		}
+	}
+}
+
+
+
